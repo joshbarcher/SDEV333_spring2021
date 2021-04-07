@@ -44,12 +44,52 @@ public class Bag implements ICollection
     @Override
     public boolean contains(Object element)
     {
+        for (int i = 0; i < data.length; i++)
+        {
+            if (data[i] != null && data[i].equals(element))
+            {
+                return true;
+            }
+        }
         return false;
     }
 
+    /*
+        Scenarios:
+        #1 - What if the element is in the bag multiple times?
+        #2 - What if not there...
+        #3 - What if it is there...
+        #4 - Empty bag
+        #5 - Full bag
+     */
     @Override
     public boolean remove(Object element)
     {
+        //the bag is empty
+        if (nextUnusedIndex == 0)
+        {
+            return false;
+        }
+
+        //loop over all elements
+        for (int i = 0; i < nextUnusedIndex; i++)
+        {
+            //did we find it?
+            if (data[i].equals(element))
+            {
+                //remove the element, shifting down higher elements
+                for (int j = i; j < nextUnusedIndex - 1; j++)
+                {
+                    data[j] = data[j + 1];
+                }
+                nextUnusedIndex--; //???
+                data[nextUnusedIndex] = null;
+
+                //stop searching...
+                return true;
+            }
+        }
+
         return false;
     }
 
