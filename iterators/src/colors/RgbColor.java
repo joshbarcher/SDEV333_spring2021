@@ -81,9 +81,9 @@ public class RgbColor implements Iterable<Integer>
             }
             else
             {
-
+                throw new IllegalStateException(
+                    "There are no more components to return");
             }
-            return null;
         }
     }
 }
