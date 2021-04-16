@@ -1,10 +1,10 @@
 package structure;
 
-public interface ICollection
+public interface ICollection<T> extends Iterable<T>
 {
-    boolean add(Object newElement);
-    boolean contains(Object element);
-    boolean remove(Object element);
+    boolean add(T newElement);
+    boolean contains(T element);
+    boolean remove(T element);
     int size();
     boolean isEmpty();
 }

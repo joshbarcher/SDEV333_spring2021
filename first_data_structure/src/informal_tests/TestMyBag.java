@@ -6,7 +6,7 @@ public class TestMyBag
 {
     public static void main(String[] args)
     {
-        Bag bagOfTreats = new Bag(5);
+        Bag<String> bagOfTreats = new Bag<>(5);
 
         System.out.println("Before adding...");
         System.out.println(bagOfTreats.size() + " / " + bagOfTreats.getCapacity());
@@ -42,14 +42,20 @@ public class TestMyBag
         System.out.println();
 
         System.out.println(bagOfTreats);
+        System.out.println();
 
         //outstanding problem: how to loop over our elements?
-        /*for (Object treat : bagOfTreats)
+        for (String treat : bagOfTreats)
         {
-
+            System.out.println(treat);
         }
 
-        for (int i = 0; i < bagOfTreats.size(); i++)
+        for (String treat : bagOfTreats)
+        {
+            bagOfTreats.remove(treat);
+        }
+
+        /*for (int i = 0; i < bagOfTreats.size(); i++)
         {
             System.out.println(bagOfTreats[i].toUpperCase());
         }*/

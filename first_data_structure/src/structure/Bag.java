@@ -1,18 +1,23 @@
 package structure;
 
 import java.util.Arrays;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 
-public class Bag implements ICollection
+public class Bag<T> implements ICollection<T>
 {
     private static final int DEFAULT_CAPACITY = 10;
-    private Object[] data;
+    private T[] data;
 
     //track the next available spot
     private int nextUnusedIndex = 0;
 
+    //track changes to the structure with a number
+    private int modCount;
+
     public Bag()
     {
-        data = new Object[DEFAULT_CAPACITY];
+        data = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
     public Bag(int capacity)
@@ -22,11 +27,11 @@ public class Bag implements ICollection
             throw new IllegalArgumentException("Capacity must be positive");
         }
 
-        data = new Object[capacity];
+        data = (T[]) new Object[capacity];
     }
 
     @Override
-    public boolean add(Object newElement)
+    public boolean add(T newElement)
     {
         //is the bag full?
         if (nextUnusedIndex >= data.length)
@@ -37,12 +42,13 @@ public class Bag implements ICollection
         //otherwise add the element
         data[nextUnusedIndex] = newElement;
         nextUnusedIndex++;
+        modCount++; //a change was made
 
         return true; //added!
     }
 
     @Override
-    public boolean contains(Object element)
+    public boolean contains(T element)
     {
         for (int i = 0; i < data.length; i++)
         {
@@ -63,7 +69,7 @@ public class Bag implements ICollection
         #5 - Full bag
      */
     @Override
-    public boolean remove(Object element)
+    public boolean remove(T element)
     {
         //the bag is empty
         if (nextUnusedIndex == 0)
@@ -82,8 +88,9 @@ public class Bag implements ICollection
                 {
                     data[j] = data[j + 1];
                 }
-                nextUnusedIndex--; //???
+                nextUnusedIndex--;
                 data[nextUnusedIndex] = null;
+                modCount++;
 
                 //stop searching...
                 return true;
@@ -115,4 +122,64 @@ public class Bag implements ICollection
     {
         return "Data: " + Arrays.toString(data);
     }
+
+    @Override
+    public Iterator<T> iterator()
+    {
+        return new BagIterator();
+    }
+
+    private class BagIterator implements Iterator<T>
+    {
+        //this is the index that will next be returned by the iterator
+        private int nextIndex = 0;
+        private int savedModCount;
+
+        public BagIterator()
+        {
+            //assign the field in the inner class to the outer class field
+            savedModCount = modCount;
+        }
+
+        @Override
+        public boolean hasNext()
+        {
+            checkForConcurrentChanges();
+
+            //make sure we still have a valid index and the value is not null
+            return nextIndex < nextUnusedIndex;
+        }
+
+        private void checkForConcurrentChanges()
+        {
+            if (savedModCount != modCount)
+            {
+                throw new ConcurrentModificationException(
+                        "You cannot change the Bag while iterating");
+            }
+        }
+
+        @Override
+        public T next()
+        {
+            checkForConcurrentChanges();
+
+            //save the next element seen by the iterator, move to the next element, return our result
+            return data[nextIndex++];
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
