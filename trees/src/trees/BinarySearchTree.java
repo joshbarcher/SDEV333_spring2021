@@ -29,39 +29,39 @@ public class BinarySearchTree<T extends Comparable<T>> implements ISearchTree<T>
         else //not empty?
         {
             //recursively move down the tree and try to add the new element
-            return add(root, element);
+            int oldSize = size; //save it!
+            root = add(root, element);
+            return oldSize != size;
         }
     }
 
-    private boolean add(Node current, T element)
+    private Node add(Node current, T element)
     {
-        //is this a duplicate?
-        int comparison = current.data.compareTo(element);
-        if (comparison == 0)
+        //is this a null reference? then we found a spot for the element
+        if (current == null)
         {
-            return false;
+            size++;
+            modCount++;
+            return new Node(element, null, null);
         }
-        //otherwise search to the left
-        else if (comparison > 0)
-        {
 
+        int comparison = current.data.compareTo(element);
+        if (comparison > 0)
+        {
+            current.left = add(current.left, element);
         }
         //otherwise search to the right
-        else
+        else if (comparison < 0)
         {
-
+            current.right = add(current.right, element);
         }
-        return false;
+
+        //return current if there is a duplicate, or otherwise
+        return current;
     }
 
     @Override
     public boolean contains(T element)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean remove(T element)
     {
         return false;
     }
@@ -74,6 +74,12 @@ public class BinarySearchTree<T extends Comparable<T>> implements ISearchTree<T>
 
     @Override
     public boolean isEmpty()
+    {
+        return false;
+    }
+
+    @Override
+    public boolean remove(T element)
     {
         return false;
     }
