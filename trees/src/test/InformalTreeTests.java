@@ -14,7 +14,8 @@ public class InformalTreeTests
         treeOfNums.add(80);
         treeOfNums.add(-3);
         treeOfNums.add(13);
+        treeOfNums.add(120);
 
-        System.out.println(treeOfNums);
+        System.out.println(treeOfNums.contains(120));
     }
 }
