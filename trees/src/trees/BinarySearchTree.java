@@ -1,5 +1,9 @@
 package trees;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class BinarySearchTree<T extends Comparable<T>> implements ISearchTree<T>
 {
     //fields
@@ -171,7 +175,69 @@ public class BinarySearchTree<T extends Comparable<T>> implements ISearchTree<T>
 
     }
 
+    @Override
+    public List<T> inOrder()
+    {
+        return null;
+    }
+
+    @Override
+    public List<T> preOrder()
+    {
+        List<T> traversal = new ArrayList<>();
+        preOrder(root, traversal);
+        return traversal;
+    }
+
+    private void preOrder(Node current, List<T> traversal)
+    {
+        if (current != null)
+        {
+            //NLR - node, left, right
+            traversal.add(current.data);
+            preOrder(current.left, traversal);
+            preOrder(current.right, traversal);
+        }
+    }
+
+    @Override
+    public List<T> postOrder()
+    {
+        return null;
+    }
+
+    @Override
+    public Iterator<T> iterator()
+    {
+        return new NaiveTreeIterator();
+    }
+
     //nested classes
+
+    private class NaiveTreeIterator implements Iterator<T>
+    {
+        private List<T> traversal;
+
+        //this is the index of the next element to return
+        private int nextElement;
+
+        public NaiveTreeIterator()
+        {
+            traversal = preOrder();
+        }
+
+        @Override
+        public boolean hasNext()
+        {
+            return nextElement < traversal.size();
+        }
+
+        @Override
+        public T next()
+        {
+            return traversal.get(nextElement++);
+        }
+    }
 
     private class Node
     {

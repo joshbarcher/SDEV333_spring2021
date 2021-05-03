@@ -1,6 +1,8 @@
 package trees;
 
-public interface ISearchTree<T extends Comparable<T>>
+import java.util.List;
+
+public interface ISearchTree<T extends Comparable<T>> extends Iterable<T>
 {
     //basic methods for inserting and searching
     boolean add(T element);
@@ -16,4 +18,9 @@ public interface ISearchTree<T extends Comparable<T>>
     ISearchTree<T> prune(T newRoot);
     int treeHeight();
     void invert(); //insert meme here...
+
+    //traversal methods
+    List<T> inOrder();
+    List<T> preOrder();
+    List<T> postOrder();
 }
