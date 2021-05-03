@@ -1,8 +1,7 @@
 package trees;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import javax.swing.tree.TreeNode;
+import java.util.*;
 
 public class BinarySearchTree<T extends Comparable<T>> implements ISearchTree<T>
 {
@@ -205,6 +204,26 @@ public class BinarySearchTree<T extends Comparable<T>> implements ISearchTree<T>
     {
         return null;
     }
+
+    @Override
+    public List<T> bfs()
+    {
+        List<T> results = new ArrayList<>();
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty())
+        {
+            Node next = queue.remove();
+            results.add(next.data);
+
+            if (next.left != null) queue.add(next.left);
+            if (next.right != null) queue.add(next.right);
+        }
+
+        return results;
+    }
+
 
     @Override
     public Iterator<T> iterator()

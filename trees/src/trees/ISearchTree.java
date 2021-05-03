@@ -23,4 +23,5 @@ public interface ISearchTree<T extends Comparable<T>> extends Iterable<T>
     List<T> inOrder();
     List<T> preOrder();
     List<T> postOrder();
+    List<T> bfs();
 }

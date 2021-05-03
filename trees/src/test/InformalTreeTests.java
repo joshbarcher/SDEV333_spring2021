@@ -32,5 +32,13 @@ public class InformalTreeTests
         {
             System.out.println(element);
         }
+        System.out.println();
+
+        //BFS traversal
+        List<Integer> results = treeOfNums.bfs();
+        for (int element : results)
+        {
+            System.out.println(element);
+        }
     }
 }
