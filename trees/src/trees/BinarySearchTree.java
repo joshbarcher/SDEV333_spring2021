@@ -38,6 +38,13 @@ public class BinarySearchTree<T extends Comparable<T>> implements ISearchTree<T>
         }
     }
 
+    @Override
+    public boolean add(T... elements)
+    {
+        System.out.println(elements);
+        return false;
+    }
+
     private Node add(Node current, T element)
     {
         //is this a null reference? then we found a spot for the element

@@ -6,6 +6,7 @@ public interface ISearchTree<T extends Comparable<T>> extends Iterable<T>
 {
     //basic methods for inserting and searching
     boolean add(T element);
+    boolean add(T... element);
     boolean contains(T element);
     boolean remove(T element);
     int size();

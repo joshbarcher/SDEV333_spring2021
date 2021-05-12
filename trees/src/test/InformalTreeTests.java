@@ -10,13 +10,7 @@ public class InformalTreeTests
     {
         BinarySearchTree<Integer> treeOfNums = new BinarySearchTree<>();
 
-        treeOfNums.add(24);
-        treeOfNums.add(23);
-        treeOfNums.add(42);
-        treeOfNums.add(80);
-        treeOfNums.add(-3);
-        treeOfNums.add(13);
-        treeOfNums.add(120);
+        treeOfNums.add(24, 23, 42, 80, -3, 13, 120);
 
         System.out.println(treeOfNums.contains(120));
 

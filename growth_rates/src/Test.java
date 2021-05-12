@@ -5,6 +5,18 @@ public class Test
 {
     public static void main(String[] args)
     {
+        ArrayList<Integer> listOfInts = new ArrayList<>();
+
+        System.out.println("Started adding");
+        for (int i = 1; i <= 1000000; i++)
+        {
+            listOfInts.add(i);
+        }
+        System.out.println("Ended adding");
+    }
+
+    private static void badLinkedList()
+    {
         LinkedList<Integer> listOfInts = new LinkedList<>();
 
         //add 1,000,000 numbers to the list
