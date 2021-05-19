@@ -77,8 +77,8 @@ public class HashTable<T>
         //probe to find a good position in the table
         while (table[index] != null)
         {
-            //check if a duplicate
-            if (table[index].equals(element))
+            //check if a duplicate (and hasn't been previously removed)
+            if (table[index].equals(element) && !table[index].isRemoved)
             {
                 break; //found it
             }
@@ -108,6 +108,12 @@ public class HashTable<T>
         public HashElement(K data)
         {
             this.data = data;
+        }
+
+        @Override
+        public String toString()
+        {
+            return data.toString();
         }
     }
 }
