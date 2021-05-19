@@ -24,6 +24,17 @@ public class TestMyTable
         table.add("table");
 
         System.out.println(table);
+        System.out.println();
+
+        System.out.println("Testing contains()");
+        System.out.println(table.contains("??"));
+        System.out.println(table.contains("!!"));
+        System.out.println();
+
+        System.out.println("Testing remove()");
+        System.out.println(table.remove("like"));
+        System.out.println(table.remove("table table"));
+        System.out.println(table);
 
         HashTable tableOfEmails = new HashTable();
         Email email = new Email("Let's go see a movie", "Josh");

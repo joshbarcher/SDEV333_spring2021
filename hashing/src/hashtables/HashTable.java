@@ -78,7 +78,7 @@ public class HashTable<T>
         while (table[index] != null)
         {
             //check if a duplicate (and hasn't been previously removed)
-            if (table[index].equals(element) && !table[index].isRemoved)
+            if (table[index].data.equals(element) && !table[index].isRemoved)
             {
                 break; //found it
             }
@@ -91,6 +91,13 @@ public class HashTable<T>
 
     public boolean remove(T element)
     {
+        int index = findPosition(element);
+        if (table[index] != null)
+        {
+            table[index].isRemoved = true;
+            size--;
+            return true;
+        }
         return false;
     }
 
@@ -113,7 +120,7 @@ public class HashTable<T>
         @Override
         public String toString()
         {
-            return data.toString();
+            return data.toString() + (isRemoved ? " (removed)" : "");
         }
     }
 }
