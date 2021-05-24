@@ -107,6 +107,11 @@ public class HashTable<T>
         return Arrays.toString(table);
     }
 
+    public int size()
+    {
+        return size;
+    }
+
     private class HashElement<K>
     {
         private K data;
