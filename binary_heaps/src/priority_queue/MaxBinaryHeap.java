@@ -103,13 +103,39 @@ public class MaxBinaryHeap<T extends Comparable<T>> implements IPriorityQueue<T>
 
     private void sink(int currentIndex)
     {
+        //loop while the current index has a child
+        int size = size();
+        while (currentIndex <= size / 2)
+        {
+            int leftIndex = currentIndex * 2;
+            int rightIndex = currentIndex * 2 + 1;
 
+            //find the largest child
+            int largestChildIndex = leftIndex;
+            //is the right index valid and is the element at the right index smaller?
+            if (rightIndex < nextUnusedIndex && heap[leftIndex].compareTo(heap[rightIndex]) < 0)
+            {
+                largestChildIndex = rightIndex;
+            }
+
+            //if out of order, then swap them
+            if (heap[currentIndex].compareTo(heap[largestChildIndex]) < 0)
+            {
+                //swap and move to the largest child index
+                swap(currentIndex, largestChildIndex);
+                currentIndex = largestChildIndex;
+            }
+            else
+            {
+                break;
+            }
+        }
     }
 
     @Override
     public T peek()
     {
-        return null;
+        return heap[1];
     }
 
     @Override
