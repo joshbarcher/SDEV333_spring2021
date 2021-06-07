@@ -7,6 +7,7 @@ public class QueueDriver
     public static void main(String[] args)
     {
         MaxBinaryHeap<Integer> heapOfInts = new MaxBinaryHeap<>();
-        heapOfInts.add(6, 13, 28, 11, 19, -4, 999);
+        heapOfInts.add(6, 13, 28, 11, 19, -4, 999, 11, 42, 15, 11, 27);
+        System.out.println("Size of heap: " + heapOfInts.size());
     }
 }

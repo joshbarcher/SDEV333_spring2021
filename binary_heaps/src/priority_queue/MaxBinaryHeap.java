@@ -3,6 +3,7 @@ package priority_queue;
 public class MaxBinaryHeap<T extends Comparable<T>> implements IPriorityQueue<T>
 {
     public static final int INITIAL_HEAP_SIZE = 10;
+    public static final int RESIZE_RATE = 2;
     private T[] heap;
     private int nextUnusedIndex = 1;
 
@@ -65,13 +66,44 @@ public class MaxBinaryHeap<T extends Comparable<T>> implements IPriorityQueue<T>
 
     private void resize()
     {
-        //TODO later...
+        //create a larger heap
+        T[] oldHeap = heap;
+        heap = (T[])new Comparable[oldHeap.length * RESIZE_RATE];
+
+        //copy all elements over to a new array at the same index for each element
+        for (int i = 1; i < oldHeap.length; i++)
+        {
+            heap[i] = oldHeap[i];
+        }
     }
 
     @Override
     public T remove()
     {
-        return null;
+        //preconditions?
+        if (isEmpty())
+        {
+            return null;
+        }
+
+        //save my result
+        T largest = heap[1];
+
+        //remove the last node
+        int highestUsedIndex = nextUnusedIndex - 1;
+        heap[1] = heap[highestUsedIndex];
+        heap[highestUsedIndex] = null;
+        nextUnusedIndex--;
+
+        //reorder the heap
+        sink(1);
+
+        return largest;
+    }
+
+    private void sink(int currentIndex)
+    {
+
     }
 
     @Override
