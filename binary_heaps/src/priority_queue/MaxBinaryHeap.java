@@ -12,6 +12,27 @@ public class MaxBinaryHeap<T extends Comparable<T>> implements IPriorityQueue<T>
         heap = (T[])new Comparable[INITIAL_HEAP_SIZE];
     }
 
+    //inputElements is an array of type T, for example T[]
+    public MaxBinaryHeap(T... inputElements)
+    {
+        //create a heap array large enough for the inputs
+        heap = (T[])new Comparable[inputElements.length + 1];
+
+        //copy elements over to the heap array
+        for (int i = 0; i < inputElements.length; i++)
+        {
+            heap[i + 1] = inputElements[i];
+        }
+
+        //perform build-heap
+        nextUnusedIndex = inputElements.length;
+        int size = size();
+        for (int i = size / 2; i >= 1; i--)
+        {
+            sink(i);
+        }
+    }
+
     @Override
     public void add(T element)
     {
